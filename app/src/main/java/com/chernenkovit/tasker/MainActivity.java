@@ -15,11 +15,17 @@ import android.widget.Toast;
 
 import com.chernenkovit.tasker.adapter.TabAdapter;
 import com.chernenkovit.tasker.dialog.AddingTaskDialogFragment;
+import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
+import com.chernenkovit.tasker.fragment.DoneTaskFragment;
 import com.chernenkovit.tasker.fragment.SplashFragment;
+import com.chernenkovit.tasker.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity implements AddingTaskDialogFragment.AddingTaskListener {
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
+    TabAdapter tabAdapter;
+    CurrentTaskFragment currentTaskFragment;
+    DoneTaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
         tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 2);
+        tabAdapter = new TabAdapter(fragmentManager, 2);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -97,11 +103,14 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
             }
         });
 
-        FloatingActionButton floatingActionButton=(FloatingActionButton)findViewById(R.id.fab);
+        currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
+        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.DONE_TASK_FRAGMENT_POSITION);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment addingTaskDialogFragment=new AddingTaskDialogFragment();
+                DialogFragment addingTaskDialogFragment = new AddingTaskDialogFragment();
                 addingTaskDialogFragment.show(fragmentManager, "AddingTaskFragment");
             }
         });
@@ -109,13 +118,13 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
     }
 
     @Override
-    public void onTaskAdded() {
-        Toast.makeText(this,"Task added",Toast.LENGTH_SHORT).show();
+    public void onTaskAdded(ModelTask newTask) {
+        currentTaskFragment.addTask(newTask);
     }
 
     @Override
     public void onTaskAddingCancel() {
-        Toast.makeText(this,"Task adding cancelled",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Task adding cancelled", Toast.LENGTH_SHORT).show();
 
     }
 }
