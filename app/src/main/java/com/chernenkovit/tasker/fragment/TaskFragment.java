@@ -2,18 +2,31 @@ package com.chernenkovit.tasker.fragment;
 
 
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
+import com.chernenkovit.tasker.MainActivity;
 import com.chernenkovit.tasker.adapter.TaskAdapter;
 import com.chernenkovit.tasker.model.ModelTask;
 
-public abstract class TaskFragment extends Fragment{
+public abstract class TaskFragment extends Fragment {
 
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
     protected TaskAdapter adapter;
+    public MainActivity activity;
 
-    public void addTask(ModelTask newTask) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getActivity() != null) {
+            activity = (MainActivity) getActivity();
+        }
+        addTaskFromDB();
+    }
+
+    public void addTask(ModelTask newTask, boolean saveToDB) {
         int position = -1;
 
         for (int i = 0; i < adapter.getItemCount(); i++) {
@@ -31,7 +44,13 @@ public abstract class TaskFragment extends Fragment{
         } else {
             adapter.addItem(newTask);
         }
+
+        if (saveToDB){
+            activity.dbHelper.saveTask(newTask);
+        }
     }
+
+    public abstract void addTaskFromDB();
 
     public abstract void moveTask(ModelTask task);
 }

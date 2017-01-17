@@ -2,6 +2,8 @@ package com.chernenkovit.tasker.model;
 
 import com.chernenkovit.tasker.R;
 
+import java.util.Date;
+
 public class ModelTask implements Item {
     public static final int PRIORITY_LOW = 0;
     public static final int PRIORITY_NORMAL = 1;
@@ -17,16 +19,19 @@ public class ModelTask implements Item {
     private long date;
     private int priority;
     private int status;
+    private long timestamp;
 
     public ModelTask() {
         this.status = -1;
+        this.timestamp=new Date().getTime();
     }
 
-    public ModelTask(String title, long date, int priority, int status) {
+    public ModelTask(String title, long date, int priority, int status, long timestamp) {
         this.title = title;
         this.date = date;
         this.priority = priority;
         this.status = status;
+        this.timestamp=timestamp;
     }
 
     public int getPriorityColor() {
@@ -83,5 +88,13 @@ public class ModelTask implements Item {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

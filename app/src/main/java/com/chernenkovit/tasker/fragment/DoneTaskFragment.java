@@ -13,6 +13,12 @@ import com.chernenkovit.tasker.R;
 import com.chernenkovit.tasker.adapter.DoneTasksAdapter;
 import com.chernenkovit.tasker.model.ModelTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.chernenkovit.tasker.database.DBHelper.SELECTION_STATUS;
+import static com.chernenkovit.tasker.database.DBHelper.TASK_DATE_COLUMN;
+
 public class DoneTaskFragment extends TaskFragment {
 
     OnTaskRestoreListener onTaskRestoreListener;
@@ -48,6 +54,18 @@ public class DoneTaskFragment extends TaskFragment {
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void addTaskFromDB() {
+        List<ModelTask> tasks = new ArrayList<>();
+        tasks.addAll(activity.dbHelper.query().getTasks(SELECTION_STATUS,
+                new String[]{Integer.toString(ModelTask.STATUS_DONE)},
+                TASK_DATE_COLUMN));
+        for (int i = 0; i < tasks.size(); i++) {
+            addTask(tasks.get(i), false);
+        }
+
     }
 
     @Override

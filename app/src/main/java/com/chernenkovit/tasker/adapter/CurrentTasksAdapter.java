@@ -18,6 +18,8 @@ import com.chernenkovit.tasker.model.ModelTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.chernenkovit.tasker.model.ModelTask.STATUS_DONE;
+
 public class CurrentTasksAdapter extends TaskAdapter {
 
     private static final int TYPE_TASK = 0;
@@ -73,7 +75,8 @@ public class CurrentTasksAdapter extends TaskAdapter {
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    task.setStatus(ModelTask.STATUS_DONE);
+                    task.setStatus(STATUS_DONE);
+                    getTaskFragment().activity.dbHelper.update().status(task.getTimestamp(),STATUS_DONE);
                     itemView.setBackgroundColor(resources.getColor(R.color.gray_200));
                     taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_disabled_material_light));
                     taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_disabled_material_light));
@@ -83,7 +86,7 @@ public class CurrentTasksAdapter extends TaskAdapter {
                     flipIn.addListener(new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animator) {
-                            if (task.getStatus() == ModelTask.STATUS_DONE) {
+                            if (task.getStatus() == STATUS_DONE) {
                                 taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_48dp);
 
                                 ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,

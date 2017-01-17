@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.chernenkovit.tasker.adapter.TabAdapter;
+import com.chernenkovit.tasker.database.DBHelper;
 import com.chernenkovit.tasker.dialog.AddingTaskDialogFragment;
 import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
 import com.chernenkovit.tasker.fragment.DoneTaskFragment;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements
     TabAdapter tabAdapter;
     TaskFragment currentTaskFragment;
     TaskFragment doneTaskFragment;
+    public DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+        dbHelper=new DBHelper(getApplicationContext());
         fragmentManager = getFragmentManager();
         runSplash();
         setUI();
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onTaskAdded(ModelTask newTask) {
-        currentTaskFragment.addTask(newTask);
+        currentTaskFragment.addTask(newTask,true);
     }
 
     @Override
@@ -134,11 +137,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onTaskDone(ModelTask task) {
-        doneTaskFragment.addTask(task);
+        doneTaskFragment.addTask(task,false);
     }
 
     @Override
     public void onTaskRestore(ModelTask task) {
-        currentTaskFragment.addTask(task);
+        currentTaskFragment.addTask(task,false);
     }
 }

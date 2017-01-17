@@ -14,6 +14,12 @@ import com.chernenkovit.tasker.R;
 import com.chernenkovit.tasker.adapter.CurrentTasksAdapter;
 import com.chernenkovit.tasker.model.ModelTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.chernenkovit.tasker.database.DBHelper.SELECTION_STATUS;
+import static com.chernenkovit.tasker.database.DBHelper.TASK_DATE_COLUMN;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +32,7 @@ public class CurrentTaskFragment extends TaskFragment {
         // Required empty public constructor
     }
 
-    public interface OnTaskDoneListener{
+    public interface OnTaskDoneListener {
         void onTaskDone(ModelTask task);
     }
 
@@ -34,9 +40,9 @@ public class CurrentTaskFragment extends TaskFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            onTaskDoneListener=(OnTaskDoneListener) activity;
-        } catch (ClassCastException e){
-            throw  new ClassCastException(activity.toString()+" must implement OnTaskDoneListener");
+            onTaskDoneListener = (OnTaskDoneListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnTaskDoneListener");
         }
     }
 
@@ -53,6 +59,18 @@ public class CurrentTaskFragment extends TaskFragment {
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void addTaskFromDB() {
+        List<ModelTask> tasks = new ArrayList<>();
+        tasks.addAll(activity.dbHelper.query().getTasks(SELECTION_STATUS + " OR " + SELECTION_STATUS,
+                new String[]{Integer.toString(ModelTask.STATUS_CURRENT), Integer.toString(ModelTask.STATUS_OVERDUE)},
+                TASK_DATE_COLUMN));
+        for (int i = 0; i < tasks.size(); i++) {
+            addTask(tasks.get(i), false);
+        }
+
     }
 
     @Override

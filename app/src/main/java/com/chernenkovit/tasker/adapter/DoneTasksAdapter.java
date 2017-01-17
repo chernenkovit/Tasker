@@ -18,6 +18,8 @@ import com.chernenkovit.tasker.model.ModelTask;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.chernenkovit.tasker.model.ModelTask.STATUS_CURRENT;
+
 public class DoneTasksAdapter extends TaskAdapter {
     public DoneTasksAdapter(DoneTaskFragment taskFragment) {
         super(taskFragment);
@@ -63,7 +65,9 @@ public class DoneTasksAdapter extends TaskAdapter {
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    task.setStatus(ModelTask.STATUS_CURRENT);
+                    task.setStatus(STATUS_CURRENT);
+                    getTaskFragment().activity.dbHelper.update().status(task.getTimestamp(),STATUS_CURRENT);
+
                     itemView.setBackgroundColor(resources.getColor(R.color.gray_50));
                     taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_default_material_light));
                     taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_default_material_light));
