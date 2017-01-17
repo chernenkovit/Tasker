@@ -1,7 +1,7 @@
 package com.chernenkovit.tasker.fragment;
 
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,30 +10,48 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chernenkovit.tasker.R;
+import com.chernenkovit.tasker.adapter.DoneTasksAdapter;
+import com.chernenkovit.tasker.model.ModelTask;
 
+public class DoneTaskFragment extends TaskFragment {
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class DoneTaskFragment extends Fragment {
-    private RecyclerView rvDoneTasks;
-    private RecyclerView.LayoutManager layoutManager;
+    OnTaskRestoreListener onTaskRestoreListener;
 
     public DoneTaskFragment() {
         // Required empty public constructor
     }
 
+    public interface OnTaskRestoreListener {
+        void onTaskRestore(ModelTask task);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            onTaskRestoreListener = (DoneTaskFragment.OnTaskRestoreListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnTaskRestoreListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_done_task, container, false);
 
-        rvDoneTasks = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rvDoneTasks);
         layoutManager = new LinearLayoutManager(getActivity());
-        rvDoneTasks.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new DoneTasksAdapter(this);
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }
 
+    @Override
+    public void moveTask(ModelTask task) {
+        onTaskRestoreListener.onTaskRestore(task);
+    }
 }

@@ -18,14 +18,18 @@ import com.chernenkovit.tasker.dialog.AddingTaskDialogFragment;
 import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
 import com.chernenkovit.tasker.fragment.DoneTaskFragment;
 import com.chernenkovit.tasker.fragment.SplashFragment;
+import com.chernenkovit.tasker.fragment.TaskFragment;
 import com.chernenkovit.tasker.model.ModelTask;
 
-public class MainActivity extends AppCompatActivity implements AddingTaskDialogFragment.AddingTaskListener {
+public class MainActivity extends AppCompatActivity implements
+        AddingTaskDialogFragment.AddingTaskListener,
+        CurrentTaskFragment.OnTaskDoneListener,
+        DoneTaskFragment.OnTaskRestoreListener {
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
     TabAdapter tabAdapter;
-    CurrentTaskFragment currentTaskFragment;
-    DoneTaskFragment doneTaskFragment;
+    TaskFragment currentTaskFragment;
+    TaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,5 +130,15 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
     public void onTaskAddingCancel() {
         Toast.makeText(this, "Task adding cancelled", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void onTaskDone(ModelTask task) {
+        doneTaskFragment.addTask(task);
+    }
+
+    @Override
+    public void onTaskRestore(ModelTask task) {
+        currentTaskFragment.addTask(task);
     }
 }
