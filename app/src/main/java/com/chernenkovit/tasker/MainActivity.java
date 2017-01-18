@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements
     TabAdapter tabAdapter;
     TaskFragment currentTaskFragment;
     TaskFragment doneTaskFragment;
+    SearchView searchView;
     public DBHelper dbHelper;
 
     @Override
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
-        dbHelper=new DBHelper(getApplicationContext());
+        dbHelper = new DBHelper(getApplicationContext());
         fragmentManager = getFragmentManager();
         runSplash();
         setUI();
@@ -113,6 +115,21 @@ public class MainActivity extends AppCompatActivity implements
         currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
         doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.DONE_TASK_FRAGMENT_POSITION);
 
+        searchView = (SearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                currentTaskFragment.findTasks(newText);
+                doneTaskFragment.findTasks(newText);
+                return false;
+            }
+        });
+
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onTaskAdded(ModelTask newTask) {
-        currentTaskFragment.addTask(newTask,true);
+        currentTaskFragment.addTask(newTask, true);
     }
 
     @Override
@@ -137,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onTaskDone(ModelTask task) {
-        doneTaskFragment.addTask(task,false);
+        doneTaskFragment.addTask(task, false);
     }
 
     @Override
     public void onTaskRestore(ModelTask task) {
-        currentTaskFragment.addTask(task,false);
+        currentTaskFragment.addTask(task, false);
     }
 }

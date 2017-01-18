@@ -16,6 +16,7 @@ import com.chernenkovit.tasker.model.ModelTask;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.chernenkovit.tasker.database.DBHelper.SELECTION_LIKE_TITLE;
 import static com.chernenkovit.tasker.database.DBHelper.SELECTION_STATUS;
 import static com.chernenkovit.tasker.database.DBHelper.TASK_DATE_COLUMN;
 
@@ -57,7 +58,20 @@ public class DoneTaskFragment extends TaskFragment {
     }
 
     @Override
+    public void findTasks(String title) {
+        adapter.removeAllItems();
+        List<ModelTask> tasks = new ArrayList<>();
+        tasks.addAll(activity.dbHelper.query().getTasks(SELECTION_LIKE_TITLE + " AND " + SELECTION_STATUS,
+                new String[]{"%" + title + "%", Integer.toString(ModelTask.STATUS_DONE)},
+                TASK_DATE_COLUMN));
+        for (int i = 0; i < tasks.size(); i++) {
+            addTask(tasks.get(i), false);
+        }
+    }
+
+    @Override
     public void addTaskFromDB() {
+        adapter.removeAllItems();
         List<ModelTask> tasks = new ArrayList<>();
         tasks.addAll(activity.dbHelper.query().getTasks(SELECTION_STATUS,
                 new String[]{Integer.toString(ModelTask.STATUS_DONE)},
@@ -65,7 +79,6 @@ public class DoneTaskFragment extends TaskFragment {
         for (int i = 0; i < tasks.size(); i++) {
             addTask(tasks.get(i), false);
         }
-
     }
 
     @Override
