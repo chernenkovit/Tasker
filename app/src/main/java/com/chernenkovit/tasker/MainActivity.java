@@ -23,6 +23,8 @@ import com.chernenkovit.tasker.fragment.SplashFragment;
 import com.chernenkovit.tasker.fragment.TaskFragment;
 import com.chernenkovit.tasker.model.ModelTask;
 
+import alarm.AlarmHelper;
+
 public class MainActivity extends AppCompatActivity implements
         AddingTaskDialogFragment.AddingTaskListener,
         CurrentTaskFragment.OnTaskDoneListener,
@@ -41,10 +43,23 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+        AlarmHelper.getInstance().init(getApplicationContext());
         dbHelper = new DBHelper(getApplicationContext());
         fragmentManager = getFragmentManager();
         runSplash();
         setUI();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        App.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        App.activityPaused();
     }
 
     @Override

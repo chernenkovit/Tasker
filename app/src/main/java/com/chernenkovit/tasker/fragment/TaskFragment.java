@@ -15,12 +15,15 @@ import com.chernenkovit.tasker.adapter.TaskAdapter;
 import com.chernenkovit.tasker.model.Item;
 import com.chernenkovit.tasker.model.ModelTask;
 
+import alarm.AlarmHelper;
+
 public abstract class TaskFragment extends Fragment {
 
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
     protected TaskAdapter adapter;
     public MainActivity activity;
+    public AlarmHelper alarmHelper;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -29,6 +32,9 @@ public abstract class TaskFragment extends Fragment {
         if (getActivity() != null) {
             activity = (MainActivity) getActivity();
         }
+
+        alarmHelper=AlarmHelper.getInstance();
+
         addTaskFromDB();
     }
 
@@ -92,6 +98,7 @@ public abstract class TaskFragment extends Fragment {
                         @Override
                         public void onViewDetachedFromWindow(View view) {
                             if (isRemoved[0]){
+                                alarmHelper.removeAlarm(timestamp);
                                 activity.dbHelper.removeTask(timestamp);
                             }
                         }
