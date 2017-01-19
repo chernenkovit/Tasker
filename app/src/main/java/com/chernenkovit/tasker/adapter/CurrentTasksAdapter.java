@@ -15,7 +15,10 @@ import com.chernenkovit.tasker.R;
 import com.chernenkovit.tasker.Utils;
 import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
 import com.chernenkovit.tasker.model.Item;
+import com.chernenkovit.tasker.model.ModelSeparator;
 import com.chernenkovit.tasker.model.ModelTask;
+
+import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,7 +45,10 @@ public class CurrentTasksAdapter extends TaskAdapter {
                 return new TaskViewHolder(v, title, date, priority);
             }
             case TYPE_SEPARATOR:
-                return null;
+                View separator = LayoutInflater.from(parent.getContext()).inflate(R.layout.model_separator, parent, false);
+                TextView type = (TextView) separator.findViewById(R.id.tvSeparatorName);
+
+                return new SeparatorViewHolder(separator, type);
             default:
                 return null;
         }
@@ -51,6 +57,7 @@ public class CurrentTasksAdapter extends TaskAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Item item = items.get(position);
+        final Resources resources = holder.itemView.getResources();
 
         if (item.isTask()) {
             holder.itemView.setEnabled(true);
@@ -58,7 +65,6 @@ public class CurrentTasksAdapter extends TaskAdapter {
             final TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
 
             final View itemView = taskViewHolder.itemView;
-            final Resources resources = itemView.getResources();
 
             taskViewHolder.title.setText(task.getTitle());
             if (task.getDate() != 0) {
@@ -69,22 +75,35 @@ public class CurrentTasksAdapter extends TaskAdapter {
             itemView.setVisibility(View.VISIBLE);
             taskViewHolder.priority.setEnabled(true);
 
+            if (task.getDate() != 0 && task.getDate() < Calendar.getInstance().getTimeInMillis()) {
+                itemView.setBackgroundColor(resources.getColor(R.color.gray_200));
+            } else {
+                itemView.setBackgroundColor(resources.getColor(R.color.gray_50));
+            }
+
             taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_default_material_light));
             taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_default_material_light));
             taskViewHolder.priority.setColorFilter(resources.getColor(task.getPriorityColor()));
             taskViewHolder.priority.setImageResource(R.drawable.ic_checkbox_blank_circle_white_48dp);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getTaskFragment().showTaskEditDialog(task);
+                }
+            });
+
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
 
-                    Handler handler=new Handler();
+                    Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                        getTaskFragment().removeTaskDialog(taskViewHolder.getLayoutPosition());
+                            getTaskFragment().removeTaskDialog(taskViewHolder.getLayoutPosition());
                         }
-                    },1000);
+                    }, 1000);
 
                     return true;
                 }
@@ -95,7 +114,7 @@ public class CurrentTasksAdapter extends TaskAdapter {
                 public void onClick(View view) {
                     taskViewHolder.priority.setEnabled(false);
                     task.setStatus(STATUS_DONE);
-                    getTaskFragment().activity.dbHelper.update().status(task.getTimestamp(),STATUS_DONE);
+                    getTaskFragment().activity.dbHelper.update().status(task.getTimestamp(), STATUS_DONE);
                     taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_disabled_material_light));
                     taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_disabled_material_light));
                     taskViewHolder.priority.setColorFilter(resources.getColor(task.getPriorityColor()));
@@ -164,6 +183,11 @@ public class CurrentTasksAdapter extends TaskAdapter {
             });
 
 
+        } else {
+            ModelSeparator separator = (ModelSeparator) item;
+            SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) holder;
+
+            separatorViewHolder.type.setText(resources.getString(separator.getType()));
         }
 
     }

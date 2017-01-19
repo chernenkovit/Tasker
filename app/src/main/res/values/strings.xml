@@ -15,4 +15,9 @@
     <string name="dialog_error_empty_title">Please, enter the title</string>
     <string name="dialog_remove_message">Are you sure want to delete this task?</string>
     <string name="removed">Removed</string>
+    <string name="separator_overdue">Overdue</string>
+    <string name="separator_today">Today</string>
+    <string name="separator_tomorrow">Tomorrow</string>
+    <string name="separator_future">Future</string>
+    <string name="dialog_editing_title">Editing task</string>
 </resources>

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.chernenkovit.tasker.adapter.TabAdapter;
 import com.chernenkovit.tasker.database.DBHelper;
 import com.chernenkovit.tasker.dialog.AddingTaskDialogFragment;
+import com.chernenkovit.tasker.dialog.EditTaskDialogFragment;
 import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
 import com.chernenkovit.tasker.fragment.DoneTaskFragment;
 import com.chernenkovit.tasker.fragment.SplashFragment;
@@ -28,7 +29,8 @@ import alarm.AlarmHelper;
 public class MainActivity extends AppCompatActivity implements
         AddingTaskDialogFragment.AddingTaskListener,
         CurrentTaskFragment.OnTaskDoneListener,
-        DoneTaskFragment.OnTaskRestoreListener {
+        DoneTaskFragment.OnTaskRestoreListener,
+        EditTaskDialogFragment.EditingTaskListener{
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
     TabAdapter tabAdapter;
@@ -175,5 +177,11 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onTaskRestore(ModelTask task) {
         currentTaskFragment.addTask(task, false);
+    }
+
+    @Override
+    public void onTaskEdited(ModelTask editedTask) {
+        currentTaskFragment.updateTask(editedTask);
+        dbHelper.update().task(editedTask);
     }
 }
