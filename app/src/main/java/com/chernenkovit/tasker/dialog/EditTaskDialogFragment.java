@@ -25,7 +25,7 @@ import com.chernenkovit.tasker.model.ModelTask;
 
 import java.util.Calendar;
 
-import alarm.AlarmHelper;
+import com.chernenkovit.tasker.alarm.AlarmHelper;
 
 public class EditTaskDialogFragment extends DialogFragment {
 

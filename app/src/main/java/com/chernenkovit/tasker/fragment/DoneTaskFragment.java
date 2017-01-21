@@ -113,4 +113,12 @@ public class DoneTaskFragment extends TaskFragment {
         }
         onTaskRestoreListener.onTaskRestore(task);
     }
+
+    @Override
+    public void checkAdapter() {
+        if (adapter==null){
+            adapter=new DoneTasksAdapter(this);
+            addTaskFromDB();
+        }
+    }
 }

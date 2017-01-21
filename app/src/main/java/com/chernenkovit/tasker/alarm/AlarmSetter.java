@@ -1,4 +1,4 @@
-package alarm;
+package com.chernenkovit.tasker.alarm;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

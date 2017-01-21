@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.chernenkovit.tasker.adapter.TabAdapter;
+import com.chernenkovit.tasker.alarm.AlarmHelper;
 import com.chernenkovit.tasker.database.DBHelper;
 import com.chernenkovit.tasker.dialog.AddingTaskDialogFragment;
 import com.chernenkovit.tasker.dialog.EditTaskDialogFragment;
@@ -24,13 +25,11 @@ import com.chernenkovit.tasker.fragment.SplashFragment;
 import com.chernenkovit.tasker.fragment.TaskFragment;
 import com.chernenkovit.tasker.model.ModelTask;
 
-import alarm.AlarmHelper;
-
 public class MainActivity extends AppCompatActivity implements
         AddingTaskDialogFragment.AddingTaskListener,
         CurrentTaskFragment.OnTaskDoneListener,
         DoneTaskFragment.OnTaskRestoreListener,
-        EditTaskDialogFragment.EditingTaskListener{
+        EditTaskDialogFragment.EditingTaskListener {
     FragmentManager fragmentManager;
     PreferenceHelper preferenceHelper;
     TabAdapter tabAdapter;
@@ -43,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Ads.showBanner(this);
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
         AlarmHelper.getInstance().init(getApplicationContext());
@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements
         fragmentManager = getFragmentManager();
         runSplash();
         setUI();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
     }
 
     @Override

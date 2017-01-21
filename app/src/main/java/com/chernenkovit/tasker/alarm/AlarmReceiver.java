@@ -1,4 +1,4 @@
-package alarm;
+package com.chernenkovit.tasker.alarm;
 
 import android.app.Notification;
 import android.app.NotificationManager;

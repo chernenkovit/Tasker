@@ -17,7 +17,7 @@ import com.chernenkovit.tasker.dialog.EditTaskDialogFragment;
 import com.chernenkovit.tasker.model.Item;
 import com.chernenkovit.tasker.model.ModelTask;
 
-import alarm.AlarmHelper;
+import com.chernenkovit.tasker.alarm.AlarmHelper;
 
 public abstract class TaskFragment extends Fragment {
 
@@ -114,4 +114,6 @@ public abstract class TaskFragment extends Fragment {
     public abstract void addTaskFromDB();
 
     public abstract void moveTask(ModelTask task);
+
+    public abstract void checkAdapter();
 }

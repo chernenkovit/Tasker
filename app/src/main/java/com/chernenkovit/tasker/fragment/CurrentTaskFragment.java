@@ -176,4 +176,12 @@ public class CurrentTaskFragment extends TaskFragment {
         alarmHelper.removeAlarm(task.getTimestamp());
         onTaskDoneListener.onTaskDone(task);
     }
+
+    @Override
+    public void checkAdapter() {
+        if (adapter==null){
+            adapter=new CurrentTasksAdapter(this);
+            addTaskFromDB();
+        }
+    }
 }
