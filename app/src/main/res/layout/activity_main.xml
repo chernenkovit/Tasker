@@ -49,7 +49,9 @@
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:tabIndicatorColor="@android:color/background_light"
                     app:tabSelectedTextColor="@android:color/background_light"
-                    app:tabTextColor="@android:color/background_light" />
+                    app:tabTextColor="@android:color/background_light"
+                    app:tabGravity="fill"
+                    />
 
             </android.support.design.widget.AppBarLayout>
 
