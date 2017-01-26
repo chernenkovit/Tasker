@@ -7,6 +7,9 @@ Create and use tasks, notes and shopping lists quickly and easily! You will neve
 - Move notes from current status to done and back
 - Search, edit and delete the note
 
+<p1>Get it on [Google Play] (https://play.google.com/store/apps/details?id=com.chernenkovit.tasker)</p1>
+
+
 ![](http://i.imgur.com/3MApV7N.png) ![](http://i.imgur.com/nKCZqmG.png) ![](http://i.imgur.com/Jryxw3C.png)
 
 **Used Android components:**
