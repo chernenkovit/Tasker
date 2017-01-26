@@ -28,9 +28,7 @@ import static com.chernenkovit.tasker.model.ModelSeparator.TYPE_TODAY;
 import static com.chernenkovit.tasker.model.ModelSeparator.TYPE_TOMORROW;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+/** Fragment for current tasks implementation. */
 public class CurrentTaskFragment extends TaskFragment {
 
     OnTaskDoneListener onTaskDoneListener;

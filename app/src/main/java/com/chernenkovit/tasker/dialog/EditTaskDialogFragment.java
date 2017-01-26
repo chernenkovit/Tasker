@@ -21,12 +21,12 @@ import android.widget.TimePicker;
 
 import com.chernenkovit.tasker.R;
 import com.chernenkovit.tasker.Utils;
+import com.chernenkovit.tasker.alarm.AlarmHelper;
 import com.chernenkovit.tasker.model.ModelTask;
 
 import java.util.Calendar;
 
-import com.chernenkovit.tasker.alarm.AlarmHelper;
-
+/** DialogFragment for task editing. */
 public class EditTaskDialogFragment extends DialogFragment {
 
     public static EditTaskDialogFragment newInstance(ModelTask task) {

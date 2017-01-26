@@ -3,6 +3,7 @@ package com.chernenkovit.tasker;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/** Helper class SharedPreferences. */
 public class PreferenceHelper {
     public static final String SPLASH_IS_INVISIBLE="splash_is_invisible";
     private static PreferenceHelper instance;

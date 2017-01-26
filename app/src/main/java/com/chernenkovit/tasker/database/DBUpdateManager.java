@@ -12,6 +12,7 @@ import static com.chernenkovit.tasker.database.DBHelper.TASK_STATUS_COLUMN;
 import static com.chernenkovit.tasker.database.DBHelper.TASK_TIMESTAMP_COLUMN;
 import static com.chernenkovit.tasker.database.DBHelper.TASK_TITLE_COLUMN;
 
+/** Helper class for records updating in database. */
 public class DBUpdateManager {
 
     SQLiteDatabase database;

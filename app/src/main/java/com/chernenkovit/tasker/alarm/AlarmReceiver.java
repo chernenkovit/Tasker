@@ -12,6 +12,7 @@ import com.chernenkovit.tasker.App;
 import com.chernenkovit.tasker.MainActivity;
 import com.chernenkovit.tasker.R;
 
+/** Custom BroadcastReceiver with alarms initialization and notifications sending. */
 public class AlarmReceiver extends BroadcastReceiver {
 
     @Override

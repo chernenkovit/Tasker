@@ -2,6 +2,7 @@ package com.chernenkovit.tasker;
 
 import android.app.Application;
 
+/** Application class. */
 public class App extends Application {
 
     private static boolean activityVisible;

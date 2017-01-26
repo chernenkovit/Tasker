@@ -26,7 +26,7 @@ import com.chernenkovit.tasker.model.ModelTask;
 
 import java.util.Calendar;
 
-
+/** DialogFragment for new tasks adding. */
 public class AddingTaskDialogFragment extends DialogFragment {
 
     private AddingTaskListener addingTaskListener;

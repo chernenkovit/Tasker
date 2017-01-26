@@ -20,6 +20,7 @@ import static com.chernenkovit.tasker.database.DBHelper.SELECTION_LIKE_TITLE;
 import static com.chernenkovit.tasker.database.DBHelper.SELECTION_STATUS;
 import static com.chernenkovit.tasker.database.DBHelper.TASK_DATE_COLUMN;
 
+/** Fragment for done tasks implementation. */
 public class DoneTaskFragment extends TaskFragment {
 
     OnTaskRestoreListener onTaskRestoreListener;

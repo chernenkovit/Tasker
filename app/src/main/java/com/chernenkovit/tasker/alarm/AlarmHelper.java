@@ -7,6 +7,7 @@ import android.content.Intent;
 
 import com.chernenkovit.tasker.model.ModelTask;
 
+/** AlarmManager helper class with initialization, setting and removing alarm methods. */
 public class AlarmHelper {
 
     private static AlarmHelper instance;

@@ -2,6 +2,7 @@ package com.chernenkovit.tasker;
 
 import java.text.SimpleDateFormat;
 
+/** Utils class. */
 public class Utils {
     public static String getDate(long date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");

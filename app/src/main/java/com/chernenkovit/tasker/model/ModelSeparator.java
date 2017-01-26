@@ -2,6 +2,7 @@ package com.chernenkovit.tasker.model;
 
 import com.chernenkovit.tasker.R;
 
+/** Separator model class. */
 public class ModelSeparator implements Item {
     public static final int TYPE_OVERDUE= R.string.separator_overdue;
     public static final int TYPE_TODAY= R.string.separator_today;

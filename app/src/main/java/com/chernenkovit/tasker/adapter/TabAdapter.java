@@ -7,6 +7,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import com.chernenkovit.tasker.fragment.CurrentTaskFragment;
 import com.chernenkovit.tasker.fragment.DoneTaskFragment;
 
+/** Tab adapter. */
 public class TabAdapter extends FragmentStatePagerAdapter {
 
     public static final int CURRENT_TASK_FRAGMENT_POSITION = 0;

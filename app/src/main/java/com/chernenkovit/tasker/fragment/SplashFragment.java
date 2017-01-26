@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 
 import com.chernenkovit.tasker.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
+/** Fragment for splash screen implementation. */
 public class SplashFragment extends Fragment {
 
 

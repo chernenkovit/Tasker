@@ -24,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.chernenkovit.tasker.model.ModelTask.STATUS_DONE;
 
+/** Custom adapter for current tasks data presenting. */
 public class CurrentTasksAdapter extends TaskAdapter {
 
     private static final int TYPE_TASK = 0;

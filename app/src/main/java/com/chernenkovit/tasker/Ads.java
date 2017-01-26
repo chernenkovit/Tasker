@@ -8,6 +8,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+/** AdMob implementation class. */
 public class Ads {
 
     public  static void showBanner(final Activity activity){

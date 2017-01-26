@@ -19,6 +19,7 @@ import com.chernenkovit.tasker.model.ModelTask;
 
 import com.chernenkovit.tasker.alarm.AlarmHelper;
 
+/** Fragment with common data for current and done tasks fragments. */
 public abstract class TaskFragment extends Fragment {
 
     protected RecyclerView recyclerView;

@@ -21,6 +21,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.chernenkovit.tasker.model.ModelTask.STATUS_CURRENT;
 
+/** Custom adapter for done tasks data presenting. */
 public class DoneTasksAdapter extends TaskAdapter {
     public DoneTasksAdapter(DoneTaskFragment taskFragment) {
         super(taskFragment);

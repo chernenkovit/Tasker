@@ -10,6 +10,7 @@ import com.chernenkovit.tasker.model.ModelTask;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Custom BroadcastReceiver with alarms setting on device boot completed. */
 public class AlarmSetter extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

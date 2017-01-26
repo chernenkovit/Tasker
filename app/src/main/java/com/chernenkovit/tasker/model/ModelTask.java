@@ -4,6 +4,7 @@ import com.chernenkovit.tasker.R;
 
 import java.util.Date;
 
+/** Task model class. */
 public class ModelTask implements Item {
     public static final int PRIORITY_LOW = 0;
     public static final int PRIORITY_NORMAL = 1;

@@ -25,6 +25,7 @@ import com.chernenkovit.tasker.fragment.SplashFragment;
 import com.chernenkovit.tasker.fragment.TaskFragment;
 import com.chernenkovit.tasker.model.ModelTask;
 
+/** Main activity class with tabs setting and menu implementation. */
 public class MainActivity extends AppCompatActivity implements
         AddingTaskDialogFragment.AddingTaskListener,
         CurrentTaskFragment.OnTaskDoneListener,

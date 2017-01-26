@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 
 import com.chernenkovit.tasker.model.ModelTask;
 
+/** Helper class for database creating and CRUD operations. */
 public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "tasker_database";

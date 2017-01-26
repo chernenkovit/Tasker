@@ -15,6 +15,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/** Custom adapter with common data for current and done tasks adapters. */
 public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Item> items;
